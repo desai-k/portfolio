@@ -11,6 +11,7 @@ body {
   padding: 1em;
 }
 
+
 nav ul,
 nav li {
   display: contents;
@@ -30,6 +31,11 @@ nav a {
   text-align: center;
   padding: 0.5em;
   border-bottom: 0.4em solid transparent; /* reserve space */
+
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
 }
 
 nav {
@@ -152,4 +158,30 @@ h1, h2, h3, h4, h5, h6 {
 
 h2 {
   margin: 0;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2em;
+  align-items: center;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5em;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+p {
+  font-size: 1.05rem;
+  max-width: 60ch;
+}
+
+h1 {
+  font-size: 3.5rem;
+  margin-bottom: 0.2em;
+
+  color: var(--color-accent);
 }
