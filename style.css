@@ -39,6 +39,11 @@ nav {
 
 :root {
   --color-accent: oklch(63% 0.15 25);
+  accent-color: var(--color-accent);
+}
+
+html {
+  accent-color: var(--color-accent);
 }
 
 nav a.current {
@@ -70,6 +75,54 @@ label {
 
 button {
   grid-column: 1 / -1;
+}
+
+input,
+textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5em;
+  border: 1px solid oklch(80% 3% 200);
+  border-radius: 0.3em;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 2px oklch(from var(--color-accent) 90% 0.05 h);
+}
+
+label {
+  font-weight: 500;
+}
+
+label span {
+  padding-right: 0.5em;
+}
+
+button {
+  padding: 0.6em;
+  border: none;
+  border-radius: 0.3em;
+  background-color: var(--color-accent);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: oklch(from var(--color-accent) 55% 0.15 h);
+}
+
+form {
+  padding: 1em;
+  border: 1px solid oklch(85% 2% 200);
+  border-radius: 0.5em;
+}
+
+label {
+  gap: 0.5em;
 }
 
 .projects {
