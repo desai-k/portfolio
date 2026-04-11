@@ -43,7 +43,7 @@ nav a {
   border-bottom: 0.4em solid transparent;
 
   /* Typography */
-  text-transform: uppercase;
+  text-transform: lowercase;
   font-weight: 600;
   font-size: 0.9rem;
   letter-spacing: 0.08em;
