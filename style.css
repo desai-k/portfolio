@@ -1,48 +1,14 @@
+/* =========================
+   GLOBAL STYLES
+========================= */
 body {
-  /* Set line height to 1.5 times the font size
-	   and use the OS’s UI font as the website font
-	 */
   font: 100%/1.5 system-ui;
-}
-
-body {
   max-width: 100ch;
   margin-inline: auto;
   padding: 1em;
 }
 
-
-nav ul,
-nav li {
-  display: contents;
-}
-
-nav {
-  display: flex;
-}
-
-nav a {
-  flex: 1;
-}
-
-nav a {
-  text-decoration: none;
-  color: inherit;
-  text-align: center;
-  padding: 0.5em;
-  border-bottom: 0.4em solid transparent; /* reserve space */
-
-  text-transform: uppercase;
-  font-weight: 600;
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
-}
-
-nav {
-  margin-bottom: 1em;
-  border-bottom: 1px solid oklch(80% 3% 200);
-}
-
+/* Accent color (used across site) */
 :root {
   --color-accent: oklch(63% 0.15 25);
   accent-color: var(--color-accent);
@@ -52,37 +18,78 @@ html {
   accent-color: var(--color-accent);
 }
 
+/* =========================
+   NAVIGATION BAR
+========================= */
+nav ul,
+nav li {
+  display: contents;
+}
+
+nav {
+  display: flex;
+  margin-bottom: 1em;
+  border-bottom: 1px solid oklch(80% 3% 200);
+}
+
+nav a {
+  flex: 1;
+  text-decoration: none;
+  color: inherit;
+  text-align: center;
+  padding: 0.5em;
+
+  /* Prevent layout shift on hover */
+  border-bottom: 0.4em solid transparent;
+
+  /* Typography */
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+}
+
+/* Current page */
 nav a.current {
   border-bottom-color: oklch(80% 3% 200);
 }
 
+/* Hover effect */
 nav a:hover {
   border-bottom-color: var(--color-accent);
   background-color: oklch(from var(--color-accent) 95% 5% h);
 }
 
+/* =========================
+   FORM STYLING
+========================= */
 input,
 textarea,
 button {
   font: inherit;
 }
 
+/* Grid layout for form */
 form {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 1em;
+
+  padding: 1em;
+  border: 1px solid oklch(85% 2% 200);
+  border-radius: 0.5em;
 }
 
+/* Labels use subgrid */
 label {
   display: grid;
   grid-template-columns: subgrid;
   grid-column: 1 / -1;
+  font-weight: 500;
+  gap: 0.5em;
 }
 
-button {
-  grid-column: 1 / -1;
-}
-
+/* Inputs */
 input,
 textarea {
   width: 100%;
@@ -92,6 +99,7 @@ textarea {
   border-radius: 0.3em;
 }
 
+/* Focus state */
 input:focus,
 textarea:focus {
   outline: none;
@@ -99,15 +107,9 @@ textarea:focus {
   box-shadow: 0 0 0 2px oklch(from var(--color-accent) 90% 0.05 h);
 }
 
-label {
-  font-weight: 500;
-}
-
-label span {
-  padding-right: 0.5em;
-}
-
+/* Button */
 button {
+  grid-column: 1 / -1;
   padding: 0.6em;
   border: none;
   border-radius: 0.3em;
@@ -121,16 +123,9 @@ button:hover {
   background-color: oklch(from var(--color-accent) 55% 0.15 h);
 }
 
-form {
-  padding: 1em;
-  border: 1px solid oklch(85% 2% 200);
-  border-radius: 0.5em;
-}
-
-label {
-  gap: 0.5em;
-}
-
+/* =========================
+   PROJECTS GRID
+========================= */
 .projects {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
@@ -147,8 +142,13 @@ label {
   width: 100%;
 }
 
+/* =========================
+   TYPOGRAPHY
+========================= */
 h1 {
-  font-size: 400%;
+  font-size: 3.5rem;
+  margin-bottom: 0.2em;
+  color: var(--color-accent);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -160,6 +160,14 @@ h2 {
   margin: 0;
 }
 
+p {
+  font-size: 1.05rem;
+  max-width: 60ch;
+}
+
+/* =========================
+   HOMEPAGE LAYOUT
+========================= */
 main {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -167,6 +175,7 @@ main {
   align-items: center;
 }
 
+/* Images */
 img {
   max-width: 100%;
   height: auto;
@@ -174,14 +183,60 @@ img {
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-p {
-  font-size: 1.05rem;
-  max-width: 60ch;
+/* =========================
+   Resume
+========================= */
+/* =========================
+   RESUME PAGE
+========================= */
+
+/* Space out sections */
+section {
+  margin-bottom: 2em;
 }
 
-h1 {
-  font-size: 3.5rem;
-  margin-bottom: 0.2em;
+/* Section headers */
+section h2 {
+  border-bottom: 2px solid oklch(85% 2% 200);
+  padding-bottom: 0.3em;
+  margin-bottom: 0.5em;
+}
 
-  color: var(--color-accent);
+/* Each job/entry */
+article {
+  margin-bottom: 1.2em;
+}
+
+article h3 {
+  margin-bottom: 0.2em;
+}
+
+article p,
+article time {
+  font-size: 0.9rem;
+  color: oklch(40% 2% 200);
+}
+
+article time {
+  display: block;
+  margin-bottom: 0.3em;
+}
+
+ul {
+  padding-left: 1.2em;
+}
+
+li {
+  margin-bottom: 0.3em;
+}
+
+body > p {
+  font-size: 0.95rem;
+  margin-bottom: 1.5em;
+}
+
+section {
+  padding: 1em;
+  border: 1px solid oklch(90% 2% 200);
+  border-radius: 0.5em;
 }
