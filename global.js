@@ -45,6 +45,7 @@ for (let p of pages) {
   // Open external links in new tab
   if (a.host !== location.host) {
     a.target = "_blank";
+    a.rel = "noopener noreferrer";
   }
 
   nav.append(a);
