@@ -240,3 +240,16 @@ section {
   border: 1px solid oklch(90% 2% 200);
   border-radius: 0.5em;
 }
+
+/* Dark Mode */
+html {
+  color-scheme: light dark;
+}
+
+/* Switch Positioning */
+.color-scheme {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 80%;
+}
