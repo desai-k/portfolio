@@ -8,9 +8,11 @@ body {
   padding: 1em;
 }
 
-/* Accent color (used across site) */
+/* Accent color */
 :root {
   --color-accent: oklch(63% 0.15 25);
+  --border-soft: oklch(50% 10% 200 / 40%);
+
   accent-color: var(--color-accent);
 }
 
@@ -29,7 +31,10 @@ nav li {
 nav {
   display: flex;
   margin-bottom: 1em;
-  border-bottom: 1px solid oklch(80% 3% 200);
+
+  --border-color: oklch(50% 10% 200 / 40%);
+
+  border-bottom: 1px solid var(--border-color);
 }
 
 nav a {
@@ -51,7 +56,7 @@ nav a {
 
 /* Current page */
 nav a.current {
-  border-bottom-color: oklch(80% 3% 200);
+  border-bottom-color: var(--border-color);
 }
 
 /* Hover effect */
@@ -76,7 +81,7 @@ form {
   gap: 1em;
 
   padding: 1em;
-  border: 1px solid oklch(85% 2% 200);
+  border: 1px solid var(--border-soft);
   border-radius: 0.5em;
 }
 
@@ -95,7 +100,7 @@ textarea {
   width: 100%;
   box-sizing: border-box;
   padding: 0.5em;
-  border: 1px solid oklch(80% 3% 200);
+  border: 1px solid var(--border-soft);
   border-radius: 0.3em;
 }
 
@@ -237,7 +242,7 @@ body > p {
 
 section {
   padding: 1em;
-  border: 1px solid oklch(90% 2% 200);
+  border: 1px solid var(--border-soft);
   border-radius: 0.5em;
 }
 
