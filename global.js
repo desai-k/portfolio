@@ -3,15 +3,12 @@
 // -----------------------------
 let pages = [
   { url: '', title: 'Home' },
-  { url: 'projects/index.html', title: 'Projects' },
-  { url: 'resume/index.html', title: 'Resume' },
-  { url: 'contact/index.html', title: 'Contact' },
+  { url: 'projects/', title: 'Projects' },
+  { url: 'resume/', title: 'Resume' },
+  { url: 'contact/', title: 'Contact' },
   { url: 'https://github.com/desai-k', title: 'GitHub' }
 ];
 
-// -----------------------------
-// Base path (local vs GitHub Pages)
-// -----------------------------
 const BASE_PATH =
   location.hostname === "localhost" || location.hostname === "127.0.0.1"
     ? "/"
