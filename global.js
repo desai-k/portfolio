@@ -114,11 +114,3 @@ form?.addEventListener("submit", (event) => {
 
   location.href = url;
 });
-
-// -----------------------------
-// Safer External Links
-// -----------------------------
-if (a.host !== location.host) {
-  a.target = "_blank";
-  a.rel = "noopener noreferrer";
-}
