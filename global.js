@@ -2,10 +2,10 @@
 // Pages config
 // -----------------------------
 let pages = [
-  { url: 'https://desai-k.github.io/portfolio', title: 'Home' },
-  { url: 'projects/index.html', title: 'Projects' },
-  { url: 'resume/index.html', title: 'Resume' },
-  { url: 'contact/index.html', title: 'Contact' },
+  { url: '', title: 'Home' },
+  { url: 'projects/', title: 'Projects' },
+  { url: 'resume/', title: 'Resume' },
+  { url: 'contact/', title: 'Contact' },
   { url: 'https://github.com/desai-k', title: 'GitHub' }
 ];
 
