@@ -81,3 +81,34 @@ if ("colorScheme" in localStorage) {
   setColorScheme(localStorage.colorScheme);
   select.value = localStorage.colorScheme;
 }
+
+// -----------------------------
+// Contact Form
+// -----------------------------
+let form = document.querySelector("form");
+
+form?.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  let data = new FormData(form);
+
+  let params = [];
+
+  for (let [name, value] of data) {
+    let encodedName = encodeURIComponent(name);
+    let encodedValue = encodeURIComponent(value);
+    params.push(`${encodedName}=${encodedValue}`);
+  }
+
+  let url = form.action + "?" + params.join("&");
+
+  location.href = url;
+});
+
+// -----------------------------
+// Safer External Links
+// -----------------------------
+if (a.host !== location.host) {
+  a.target = "_blank";
+  a.rel = "noopener noreferrer";
+}
