@@ -246,7 +246,7 @@ html {
   color-scheme: light dark;
 }
 
-/* Switch Positioning */
+/* Dark Mode Switch Positioning */
 .color-scheme {
   position: absolute;
   top: 1rem;
