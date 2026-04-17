@@ -80,6 +80,9 @@ select.addEventListener("input", (event) => {
 if ("colorScheme" in localStorage) {
   setColorScheme(localStorage.colorScheme);
   select.value = localStorage.colorScheme;
+} else {
+  setColorScheme("light dark");
+  select.value = "light dark";
 }
 
 // -----------------------------
