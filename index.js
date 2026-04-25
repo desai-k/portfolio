@@ -6,3 +6,18 @@ const latestProjects = projects.slice(0, 3);
 const container = document.querySelector('.projects');
 
 renderProjects(latestProjects, container, 'h2');
+
+// Display GitHub stats
+const githubData = await fetchGitHubData('your-github-username');
+
+const profileStats = document.querySelector('#profile-stats');
+
+if (profileStats) {
+  profileStats.innerHTML = `
+    <dl>
+      <dt>Public Repos:</dt><dd>${githubData.public_repos}</dd>
+      <dt>Followers:</dt><dd>${githubData.followers}</dd>
+      <dt>Following:</dt><dd>${githubData.following}</dd>
+    </dl>
+  `;
+}
