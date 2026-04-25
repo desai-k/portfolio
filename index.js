@@ -1,3 +1,4 @@
+// Show first 3 projects on homepage
 import { fetchJSON, renderProjects, fetchGitHubData } from './global.js';
 
 const projects = await fetchJSON('./lib/projects.json');
