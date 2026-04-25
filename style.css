@@ -138,9 +138,12 @@ button:hover {
 }
 
 .projects article {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  /* display: grid;
   grid-template-rows: subgrid;
-  grid-row: span 3;
+  grid-row: span 3; */
 }
 
 .projects img {
