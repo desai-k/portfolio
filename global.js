@@ -116,6 +116,7 @@ form?.addEventListener("submit", (event) => {
 });
 
 
+// Fetch JSON data from a file or API
 export async function fetchJSON(url) {
   try {
     const response = await fetch(url);
@@ -131,6 +132,7 @@ export async function fetchJSON(url) {
   }
 }
 
+// Render project data into HTML
 export function renderProjects(projects, containerElement, headingLevel = 'h2') {
   if (!containerElement) return;
 
@@ -150,6 +152,7 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
   });
 }
 
+// Fetch GitHub user data
 export async function fetchGitHubData(username) {
   return fetchJSON(`https://api.github.com/users/${username}`);
 }
