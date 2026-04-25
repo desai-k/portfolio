@@ -293,3 +293,8 @@ html {
   border-radius: 0.5em;
   background: color-mix(in oklch, var(--color-accent), canvas 90%);
 }
+
+/* Index Project Title */
+.project-title {
+  color: var(--color-accent);
+}
