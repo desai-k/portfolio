@@ -8,7 +8,7 @@ const container = document.querySelector('.projects');
 renderProjects(latestProjects, container, 'h2');
 
 // Display GitHub stats
-const githubData = await fetchGitHubData('your-github-username');
+const githubData = await fetchGitHubData('desai-k');
 
 const profileStats = document.querySelector('#profile-stats');
 
