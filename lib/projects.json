@@ -2,13 +2,13 @@
     {
         "title": "recipe-rating-analysis",
         "year": "2026",
-        "image": "../images/recipeRatings.png",
+        "image": "./images/recipeRatings.png",
         "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque dolorum quos blanditiis. Eaque repellat itaque culpa numquam consequuntur, quasi nam eveniet, distinctio ipsa asperiores minima voluptas est, optio consectetur pariatur."
     },
     {
         "title": "Expository Visualization",
         "year": "2026",
-        "image": "../images/dsc106Proj1.png",
+        "image": "./images/dsc106Proj1.png",
         "description": "Ad eveniet officiis consequatur inventore eius mollitia facilis ab, optio obcaecati fugit voluptatibus eum, sunt, quisquam accusantium incidunt labore nihil. Reprehenderit neque magni earum molestiae reiciendis quas, corporis inventore explicabo?"
     },
     {
