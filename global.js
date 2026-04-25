@@ -114,3 +114,38 @@ form?.addEventListener("submit", (event) => {
 
   location.href = url;
 });
+
+
+export async function fetchJSON(url) {
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching JSON:', error);
+  }
+}
+
+export function renderProjects(projects, containerElement, headingLevel = 'h2') {
+  if (!containerElement) return;
+
+  containerElement.innerHTML = '';
+
+  projects.forEach(project => {
+    const article = document.createElement('article');
+
+    article.innerHTML = `
+      <${headingLevel}>${project.title}</${headingLevel}>
+      <img src="${project.image}" alt="${project.title}">
+      <p>${project.description}</p>
+      <p><strong>Year:</strong> ${project.year}</p>
+    `;
+
+    containerElement.appendChild(article);
+  });
+}
