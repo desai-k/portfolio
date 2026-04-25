@@ -5,7 +5,7 @@ const projects = await fetchJSON('../lib/projects.json');
 // Update title with project count
 const title = document.querySelector('.projects-title');
 if (title) {
-  title.textContent = `Projects (${projects.length})`;
+  title.textContent = `${projects.length} Projects`;
 }
 
 const container = document.querySelector('.projects');
