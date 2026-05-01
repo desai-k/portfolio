@@ -99,12 +99,12 @@ searchInput?.addEventListener('input', e => {  query = e.target.value;
   update();
 });
 
-// UPDATE (single source of truth)
+// UPDATE
 function update() {
   const filtered = getFilteredProjects();
 
   renderProjects(filtered, container, 'h2');
-  renderPie(filtered);
+  renderPie(projects);
 }
 
 // initial render
