@@ -104,7 +104,8 @@ function update() {
   const filtered = getFilteredProjects();
 
   renderProjects(filtered, container, 'h2');
-  renderPie(projects);
+  // renderPie(projects);
+  renderPie(filtered);
 }
 
 // initial render
