@@ -298,3 +298,10 @@ html {
 .project-title {
   color: var(--color-accent);
 }
+
+.project-year {
+  color: gray;
+  font-family: Baskerville, serif;
+  font-variant-numeric: oldstyle-nums;
+  margin-top: 0.25em;
+}
