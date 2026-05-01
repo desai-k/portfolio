@@ -30,6 +30,11 @@ function getFilteredProjects() {
 }
 
 // PIE RENDER
+const allYears = [...new Set(projects.map(p => p.year))];
+
+const colors = d3.scaleOrdinal(d3.schemeTableau10)
+  .domain(allYears);
+
 function renderPie(projectsData) {
   const svg = d3.select('#projects-pie-plot');
   const legend = d3.select('.legend');
@@ -49,8 +54,6 @@ function renderPie(projectsData) {
     label: year,
     value: count
   }));
-
-  const colors = d3.scaleOrdinal(d3.schemeTableau10);
 
   const arcGenerator = d3.arc()
     .innerRadius(0)
