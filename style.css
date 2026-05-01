@@ -299,9 +299,17 @@ html {
   color: var(--color-accent);
 }
 
+/* Project Year */
 .project-year {
   color: gray;
   font-family: Baskerville, serif;
   font-variant-numeric: oldstyle-nums;
   margin-top: 0.25em;
+}
+
+/* Project Plot */
+#projects-pie-plot {
+  max-width: 20em;
+  margin-block: 2em;
+  overflow: visible;
 }
