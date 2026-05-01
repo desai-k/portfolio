@@ -64,7 +64,7 @@ function renderPie(projectsData) {
   arcs.forEach((arc, i) => {
     svg.append('path')
       .attr('d', arc)
-      .attr('fill', colors(i))
+      .attr('fill', colors(data[i].label))
       .attr('class', selectedYear === data[i].label ? 'selected' : '')
       .on('click', () => {
         selectedYear =
@@ -77,7 +77,7 @@ function renderPie(projectsData) {
   // legend
   data.forEach((d, i) => {
     legend.append('li')
-      .attr('style', `--color:${colors(i)}`)
+      .attr('style', `--color:${colors(d.label)}`)
       .attr('class', selectedYear === d.label ? 'selected' : '')
       .html(`<span class="swatch"></span> ${d.label} (${d.value})`)
       .on('click', () => {
