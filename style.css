@@ -364,3 +364,15 @@ html {
   border-radius: 0.2em;
   display: inline-block;
 }
+
+#projects-pie-plot path {
+  transition: opacity 200ms, filter 200ms;
+}
+
+#projects-pie-plot.has-selection path {
+  opacity: 0.25;
+}
+
+#projects-pie-plot.has-selection path.selected {
+  opacity: 1;
+}
