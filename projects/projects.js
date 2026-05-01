@@ -37,7 +37,6 @@ const colors = d3.scaleOrdinal(d3.schemeTableau10)
 
 function renderPie(projectsData) {
   const svg = d3.select('#projects-pie-plot');
-  svg.classed('has-selection', selectedYear !== null);
   const legend = d3.select('.legend');
 
   // clear
