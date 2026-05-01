@@ -331,6 +331,10 @@ html {
   fill: var(--color);
 }
 
+.legend li {
+  cursor: pointer;
+}
+
 .chart-container {
   display: flex;
   gap: 2em;

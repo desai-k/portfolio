@@ -92,8 +92,7 @@ function renderPie(projectsData) {
 // SEARCH
 const searchInput = document.querySelector('.searchBar');
 
-searchInput.addEventListener('input', e => {
-  query = e.target.value;
+searchInput?.addEventListener('input', e => {  query = e.target.value;
   update();
 });
 
