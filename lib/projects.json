@@ -3,19 +3,19 @@
         "title": "recipe-rating-analysis",
         "year": "2026",
         "image": "images/recipeRatings.png",
-        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque dolorum quos blanditiis. Eaque repellat itaque culpa numquam consequuntur, quasi nam eveniet, distinctio ipsa asperiores minima voluptas est, optio consectetur pariatur."
+        "description": "Food plays an important role in daily life, and understanding what makes a recipe appealing can help users make better cooking decisions. In this project, I analyze a large dataset of online recipes and user ratings to investigate how nutritional characteristics influence user preferences."
     },
     {
         "title": "Expository Visualization",
         "year": "2026",
         "image": "images/dsc106Proj1.png",
-        "description": "Ad eveniet officiis consequatur inventore eius mollitia facilis ab, optio obcaecati fugit voluptatibus eum, sunt, quisquam accusantium incidunt labore nihil. Reprehenderit neque magni earum molestiae reiciendis quas, corporis inventore explicabo?"
+        "description": "This visualization highlights how ultra-processed foods dominate grocery store offerings across different retailers. By organizing products into broad food groups and comparing the proportion of processing levels within each store, it challenges the perception that some stores consistently offer healthier options."
     },
     {
         "title": "Persuasive or Deceptive Visualization?",
         "year": "2026",
         "image": "images/project2dsc106.png",
-        "description": "Aliquam veniam consequuntur itaque! Cum totam ut nisi eius modi voluptatibus rerum cupiditate mollitia quo praesentium quidem, culpa, earum veritatis! Tempora doloribus quis mollitia iure totam dolores cupiditate, omnis ut."
+        "description": "This project explored how data visualization can shape interpretation rather than simply present neutral facts. Using the NYPD civilian complaints dataset, two opposing narratives about racial discrimination were created from the same data by applying different design choices."
     },
     {
         "title": "Doloribus quis sit exercitationem!",
