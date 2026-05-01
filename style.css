@@ -328,7 +328,8 @@ html {
 }
 
 .selected:is(path) {
-  fill: var(--color);
+  stroke: black;
+  stroke-width: 2;
 }
 
 .legend li {
