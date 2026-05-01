@@ -314,13 +314,37 @@ html {
   overflow: visible;
 }
 
+#projects-pie-plot path {
+  cursor: pointer;
+  transition: 300ms;
+}
+
+#projects-pie-plot:has(path:hover) path:not(:hover) {
+  opacity: 0.5;
+}
+
+.selected {
+  --color: oklch(60% 45% 0) !important;
+}
+
+.selected:is(path) {
+  fill: var(--color);
+}
+
+.chart-container {
+  display: flex;
+  gap: 2em;
+  align-items: center;
+  margin-block: 2em;
+}
+
 .legend {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
   gap: 1em;
-  margin-top: 1em;
   padding: 1em;
   border: 1px solid #ccc;
+  flex: 1;
 }
 
 .legend li {
