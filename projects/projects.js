@@ -6,93 +6,106 @@ const projects = await fetchJSON('../lib/projects.json');
 // Update title with project count
 const title = document.querySelector('.projects-title');
 if (title) {
-    title.textContent = `${projects.length} Projects`;
+  title.textContent = `${projects.length} Projects`;
 }
 
 const container = document.querySelector('.projects');
 renderProjects(projects, container, 'h2');
 
-
-// --- State ---
+// STATE
 let query = '';
 let selectedYear = null;
 
-// --- Helper: get filtered projects ---
+// FILTER FUNCTION
 function getFilteredProjects() {
   return projects.filter(p => {
-    const text = Object.values(p).join(' ').toLowerCase();
-    const matchesSearch = text.includes(query.toLowerCase());
-    const matchesYear = selectedYear === null || p.year === selectedYear;
+    let text = Object.values(p).join(' ').toLowerCase();
+
+    let matchesSearch = text.includes(query.toLowerCase());
+    let matchesYear =
+      selectedYear === null || p.year === selectedYear;
+
     return matchesSearch && matchesYear;
   });
 }
 
-// --- Helper: get pie chart data ---
-function getPieData(filteredProjects) {
-  const rolled = d3.rollups(
-    filteredProjects,
-    v => v.length,
-    d => d.year
-  );
-  return rolled.map(([year, count]) => ({ label: year, value: count }));
-}
+// PIE RENDER
+const allYears = [...new Set(projects.map(p => p.year))];
 
-// --- Render pie chart ---
-function renderPie(projectsForPie) {
+const colors = d3.scaleOrdinal(d3.schemeTableau10)
+  .domain(allYears);
+
+function renderPie(projectsData) {
   const svg = d3.select('#projects-pie-plot');
   const legend = d3.select('.legend');
 
-  // Clear previous chart
-  svg.selectAll('*').remove();
+  // clear
+  svg.selectAll('path').remove();
   legend.html('');
 
-  // Pie data
-  const data = getPieData(projectsForPie);
+  // group by year
+  const rolled = d3.rollups(
+    projectsData,
+    v => v.length,
+    d => d.year
+  );
 
-  // Arc generator
-  const arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
-  const pieGenerator = d3.pie().value(d => d.value);
-  const arcs = pieGenerator(data);
+  const data = rolled.map(([year, count]) => ({
+    label: year,
+    value: count
+  }));
 
-  // Draw slices
+  const arcGenerator = d3.arc()
+    .innerRadius(0)
+    .outerRadius(50);
+
+  const arcs = d3.pie()
+    .value(d => d.value)(data)
+    .map(d => arcGenerator(d));
+
+  // draw slices
   arcs.forEach((arc, i) => {
     svg.append('path')
-      .attr('d', arcGenerator(arc))
+      .attr('d', arc)
       .attr('fill', colors(data[i].label))
       .attr('class', selectedYear === data[i].label ? 'selected' : '')
-      .style('cursor', 'pointer')
       .on('click', () => {
-        selectedYear = selectedYear === data[i].label ? null : data[i].label;
+        selectedYear =
+          selectedYear === data[i].label ? null : data[i].label;
+
         update();
       });
   });
 
-  // Draw legend
+  // legend
   data.forEach((d, i) => {
     legend.append('li')
       .attr('style', `--color:${colors(d.label)}`)
       .attr('class', selectedYear === d.label ? 'selected' : '')
       .html(`<span class="swatch"></span> ${d.label} (${d.value})`)
       .on('click', () => {
-        selectedYear = selectedYear === d.label ? null : d.label;
+        selectedYear =
+          selectedYear === d.label ? null : d.label;
+
         update();
       });
   });
 }
 
-// --- Update function ---
-function update() {
-  const filteredProjects = getFilteredProjects();
-  renderProjects(filteredProjects, container, 'h2');
-  renderPie(filteredProjects);
-}
-
-// --- Search input ---
+// SEARCH
 const searchInput = document.querySelector('.searchBar');
-searchInput?.addEventListener('input', e => {
-  query = e.target.value;
+
+searchInput?.addEventListener('input', e => {  query = e.target.value;
   update();
 });
 
-// --- Initial render ---
+// UPDATE
+function update() {
+  const filtered = getFilteredProjects();
+
+  renderProjects(filtered, container, 'h2');
+  renderPie(projects);
+}
+
+// initial render
 update();
