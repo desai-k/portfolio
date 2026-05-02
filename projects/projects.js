@@ -109,13 +109,3 @@ function update() {
 
 // initial render
 update();
-
-/* When a slice is selected, fade all others */
-#projects-pie-plot.has-selection path {
-  opacity: 0.3;
-}
-
-/* Keep selected slice fully visible */
-#projects-pie-plot.has-selection path.selected {
-  opacity: 1;
-}
