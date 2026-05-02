@@ -19,14 +19,17 @@ let selectedYear = null;
 // FILTER FUNCTION
 function getFilteredProjects() {
   return projects.filter(p => {
-    let text = Object.values(p).join(' ').toLowerCase();
-
-    let matchesSearch = text.includes(query.toLowerCase());
-    let matchesYear =
-      selectedYear === null || p.year === selectedYear;
-
-    return matchesSearch && matchesYear;
+    const matchesQuery = Object.values(p).join(' ').toLowerCase()
+                          .includes(query.toLowerCase());
+    const matchesYear = selectedYear === null || p.year === selectedYear;
+    return matchesQuery && matchesYear;
   });
+}
+
+function update() {
+  const filtered = getFilteredProjects();
+  renderProjects(filtered, container, 'h2');
+  renderPie(filtered); // re-render pie chart for currently visible projects
 }
 
 // PIE RENDER
@@ -65,12 +68,12 @@ function renderPie(projectsData) {
   // draw slices
   arcs.forEach((arc, i) => {
     svg.append('path')
-      .attr('d', arc)
-      .attr('fill', colors(data[i].label))
-      .attr('class', selectedYear === data[i].label ? 'selected' : '')
+      .attr('d', arcGenerator(d))
+      .attr('fill', colors(d.data.label))
+      .attr('class', selectedYear === d.data.label ? 'selected' : '')
       .on('click', () => {
-        selectedYear = selectedYear === data[i].label ? null : data[i].label;
-        update(); // re-render pie and projects
+        selectedYear = selectedYear === d.data.label ? null : d.data.label;
+        update(); // updates pie and projects list
       });
   });
 
@@ -93,17 +96,10 @@ function renderPie(projectsData) {
 // SEARCH
 const searchInput = document.querySelector('.searchBar');
 
-searchInput?.addEventListener('input', e => {  query = e.target.value;
-  update();
+searchInput?.addEventListener('input', (e) => {
+  query = e.target.value;
+  update(); // will filter both by search query AND selected year
 });
-
-// UPDATE
-function update() {
-  const filtered = getFilteredProjects();
-
-  renderProjects(filtered, container, 'h2');
-  renderPie(filtered);
-}
 
 // initial render
 update();
