@@ -1,9 +1,8 @@
-import * as d3 from 'https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm';
+import * as d3 from 'https://jsdelivr.net';
 import { fetchJSON, renderProjects } from '../global.js';
 
 const projects = await fetchJSON('../lib/projects.json');
 
-// Update title with project count
 const title = document.querySelector('.projects-title');
 if (title) {
   title.textContent = `${projects.length} Projects`;
@@ -20,73 +19,60 @@ let selectedYear = null;
 function getFilteredProjects() {
   return projects.filter(p => {
     let text = Object.values(p).join(' ').toLowerCase();
-
     let matchesSearch = text.includes(query.toLowerCase());
-    let matchesYear =
-      selectedYear === null || p.year === selectedYear;
-
+    let matchesYear = selectedYear === null || p.year === selectedYear;
     return matchesSearch && matchesYear;
   });
 }
 
 // PIE RENDER
 const allYears = [...new Set(projects.map(p => p.year))];
-
-const colors = d3.scaleOrdinal(d3.schemeTableau10)
-  .domain(allYears);
+const colors = d3.scaleOrdinal(d3.schemeTableau10).domain(allYears);
 
 function renderPie(projectsData) {
   const svg = d3.select('#projects-pie-plot');
   const legend = d3.select('.legend');
 
-  // clear
   svg.selectAll('path').remove();
   legend.html('');
 
-  // group by year
-  const rolled = d3.rollups(
-    projectsData,
-    v => v.length,
-    d => d.year
-  );
+  // 1. Group the FULL list so slices don't resize or disappear
+  const rolled = d3.rollups(projects, v => v.length, d => d.year);
+  const data = rolled.map(([year, count]) => ({ label: year, value: count }));
 
-  const data = rolled.map(([year, count]) => ({
-    label: year,
-    value: count
-  }));
+  const arcGenerator = d3.arc().innerRadius(0).outerRadius(50);
+  const arcs = d3.pie().value(d => d.value)(data).map(d => arcGenerator(d));
 
-  const arcGenerator = d3.arc()
-    .innerRadius(0)
-    .outerRadius(50);
-
-  const arcs = d3.pie()
-    .value(d => d.value)(data)
-    .map(d => arcGenerator(d));
-
-  // draw slices
+  // 2. Draw slices with conditional opacity
   arcs.forEach((arc, i) => {
+    const year = data[i].label;
+    // Check if this year actually exists in our search results
+    const isPresent = projectsData.some(p => p.year === year);
+
     svg.append('path')
       .attr('d', arc)
-      .attr('fill', colors(data[i].label))
-      .attr('class', selectedYear === data[i].label ? 'selected' : '')
+      .attr('fill', colors(year))
+      .attr('class', selectedYear === year ? 'selected' : '')
+      .style('opacity', isPresent ? 1 : 0.1)
+      .style('pointer-events', isPresent ? 'auto' : 'none')
       .on('click', () => {
-        selectedYear =
-          selectedYear === data[i].label ? null : data[i].label;
-
+        selectedYear = selectedYear === year ? null : year;
         update();
       });
   });
 
-  // legend
+  // 3. Draw legend with same logic
   data.forEach((d, i) => {
+    const isPresent = projectsData.some(p => p.year === d.label);
+
     legend.append('li')
       .attr('style', `--color:${colors(d.label)}`)
       .attr('class', selectedYear === d.label ? 'selected' : '')
+      .style('opacity', isPresent ? 1 : 0.1)
+      .style('pointer-events', isPresent ? 'auto' : 'none')
       .html(`<span class="swatch"></span> ${d.label} (${d.value})`)
       .on('click', () => {
-        selectedYear =
-          selectedYear === d.label ? null : d.label;
-
+        selectedYear = selectedYear === d.label ? null : d.label;
         update();
       });
   });
@@ -94,17 +80,19 @@ function renderPie(projectsData) {
 
 // SEARCH
 const searchInput = document.querySelector('.searchBar');
-
-searchInput?.addEventListener('input', e => {  query = e.target.value;
+searchInput?.addEventListener('input', e => {
+  query = e.target.value;
   update();
 });
 
 // UPDATE
 function update() {
   const filtered = getFilteredProjects();
-
   renderProjects(filtered, container, 'h2');
-  renderPie(projects);
+  
+  // Pass the filtered projects to determine what is "active" 
+  // while the chart stays built on the full list.
+  renderPie(filtered);
 }
 
 // initial render
