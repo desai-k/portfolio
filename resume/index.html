@@ -2,131 +2,31 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Resume - Krish Desai</title>
+  <title>Projects</title>
   <link rel="stylesheet" href="https://desai-k.github.io/portfolio/style.css">
   <link rel="icon" href="../images/photo-1753402836666-af43aa285dcb.avif">
 
-  <script type="module" src="../global.js"></script>
+  <script src="../global.js" type="module"></script>
+<script src="projects.js" type="module"></script>
 </head>
 <body>
-  <h1>Krish Desai</h1>
+  <h1 class="projects-title">Projects</h1>
 
-  <p>
-    Phone: (714) 381-0793 |
-    Email: ksdesai@ucsd.edu |
-    <a href="https://www.linkedin.com/in/krishdesai-" target="_blank">LinkedIn</a>
-  </p>
+  <div class="chart-container">
+    <svg id="projects-pie-plot" viewBox="-50 -50 100 100"></svg>
+    <ul class="legend"></ul>
+  </div>
 
-  <!-- SUMMARY -->
-  <section>
-    <h2>Summary</h2>
-    <p>
-      Motivated second year student at University of California San Diego pursuing a degree in Data Science with a Business Analytics minor. Strong analytical and organizational skills with experience managing academics, volunteering, and extracurriculars. Seeking internship opportunities to gain practical experience.
-    </p>
-  </section>
+  <input
+    class="searchBar"
+    type="search"
+    placeholder="🔍 Search projects…"
+    aria-label="Search projects"
+  />
 
-  <!-- EXPERIENCE -->
-  <section>
-    <h2>Experience</h2>
+  </br></br>
 
-    <article>
-      <h3>Aikido Labs – Co Founder</h3>
-      <p>La Jolla, CA</p>
-      <time>Apr 2025 – Present</time>
-      <ul>
-        <li>Building UC’s first fully undergraduate-led research lab</li>
-        <li>Focused on AI, data science, and neurobiology</li>
-        <li>Collaborating with UCSD Undergraduate Research Hub</li>
-        <li><a href="https://4ikido.com" target="_blank">Website</a></li>
-      </ul>
-    </article>
-
-    <article>
-      <h3>Data Student Society @ UCSD – Projects Team</h3>
-      <p>La Jolla, CA</p>
-      <time>Mar 2026 – Present</time>
-      <ul>
-        <li>Working on WayFinder, a AI travel itinerary tool</li>
-        <li>Working on ML and route optimization</li>
-        <li>Integrating APIs and personalization</li>
-      </ul>
-    </article>
-
-    <article>
-      <h3>Blackstone LaunchPad – Cognome Team Co Founder</h3>
-      <p>La Jolla, CA</p>
-      <time>Oct 2024 – Jun 2025</time>
-      <ul>
-        <li>Accepted into UCSD startup incubator</li>
-        <li>Worked on genomic language models for drug development</li>
-        <li>Learned business models, funding, and startup development</li>
-      </ul>
-    </article>
-
-    <article>
-      <h3>Team 7157 Mubotics – Business Team</h3>
-      <p>Brea, CA</p>
-      <time>Oct 2023 – May 2024</time>
-      <ul>
-        <li>Wrote grants and managed sponsor communications</li>
-        <li>Helped raise over $100k annually</li>
-        <li>Created monthly newsletters</li>
-      </ul>
-    </article>
-
-    <article>
-      <h3>Startup – Beta Tester</h3>
-      <p>San Diego, CA</p>
-      <time>Jan 2021 – May 2021</time>
-      <ul>
-        <li>Tested mobile apps on iOS and Android</li>
-        <li>Reported bugs and improvements via GitHub</li>
-      </ul>
-    </article>
-
-  </section>
-
-  <!-- EDUCATION -->
-  <section>
-    <h2>Education</h2>
-
-    <article>
-      <h3>UC San Diego</h3>
-      <p>B.S. Data Science (Minor in Business Analytics)</p>
-      <time>Expected 2027</time>
-      <p>GPA: 3.6</p>
-    </article>
-
-    <article>
-      <h3>Brea Olinda High School</h3>
-      <time>Graduated May 2024</time>
-      <p>GPA: 4.61 (Weighted)</p>
-    </article>
-
-  </section>
-
-  <!-- PROJECTS -->
-  <section>
-    <h2>Projects</h2>
-    <p>
-      <a href="http://krisd.gitastudent.online" target="_blank">Portfolio Website</a><br>
-      <a href="https://github.com/desai-k" target="_blank">GitHub Projects</a>
-    </p>
-  </section>
-
-  <!-- SKILLS -->
-  <section>
-    <h2>Skills</h2>
-    <ul>
-      <li>Python, Pandas</li>
-      <li>Java, C#</li>
-      <li>HTML, CSS, JavaScript</li>
-      <li>SQL</li>
-      <li>AWS, Azure, O365</li>
-      <li>Data Analysis & Visualization</li>
-      <li>Communication & Presentation</li>
-    </ul>
-  </section>
+  <div class="projects"></div>
 
 </body>
 </html>
