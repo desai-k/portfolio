@@ -327,8 +327,9 @@ html {
   --color: oklch(60% 45% 0) !important;
 }
 
+/* Highlighted slice */
 .selected:is(path) {
-  fill: var(--color);
+  fill: var(--color, oklch(60% 45% 0)) !important;
 }
 
 .legend li {
@@ -355,6 +356,11 @@ html {
   display: flex;
   align-items: center;
   gap: 0.5em;
+}
+
+/* Legend styles */
+.legend li.selected .swatch {
+  background: oklch(60% 45% 0) !important;
 }
 
 .swatch {

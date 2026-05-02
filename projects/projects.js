@@ -39,7 +39,7 @@ function renderPie(projectsData) {
   const svg = d3.select('#projects-pie-plot');
   const legend = d3.select('.legend');
 
-  // clear
+  // clear previous
   svg.selectAll('path').remove();
   legend.html('');
 
@@ -59,9 +59,8 @@ function renderPie(projectsData) {
     .innerRadius(0)
     .outerRadius(50);
 
-  const arcs = d3.pie()
-    .value(d => d.value)(data)
-    .map(d => arcGenerator(d));
+  const pie = d3.pie().value(d => d.value);
+  const arcs = pie(data).map(d => arcGenerator(d));
 
   // draw slices
   arcs.forEach((arc, i) => {
@@ -70,25 +69,24 @@ function renderPie(projectsData) {
       .attr('fill', colors(data[i].label))
       .attr('class', selectedYear === data[i].label ? 'selected' : '')
       .on('click', () => {
-        selectedYear =
-          selectedYear === data[i].label ? null : data[i].label;
-
-        update();
+        selectedYear = selectedYear === data[i].label ? null : data[i].label;
+        update(); // re-render pie and projects
       });
   });
 
-  // legend
+  // draw legend
   data.forEach((d, i) => {
-    legend.append('li')
-      .attr('style', `--color:${colors(d.label)}`)
+    const li = legend.append('li')
       .attr('class', selectedYear === d.label ? 'selected' : '')
-      .html(`<span class="swatch"></span> ${d.label} (${d.value})`)
       .on('click', () => {
-        selectedYear =
-          selectedYear === d.label ? null : d.label;
-
+        selectedYear = selectedYear === d.label ? null : d.label;
         update();
       });
+
+    li.html(`<span class="swatch"></span> ${d.label} (${d.value})`);
+    // dynamically set swatch color
+    li.select('.swatch')
+      .style('background', selectedYear === d.label ? 'oklch(60% 45% 0)' : colors(d.label));
   });
 }
 
