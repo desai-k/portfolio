@@ -3,95 +3,109 @@ import { fetchJSON, renderProjects } from '../global.js';
 
 const projects = await fetchJSON('../lib/projects.json');
 
-// Update title
+// Update title with project count
 const title = document.querySelector('.projects-title');
-if (title) title.textContent = `${projects.length} Projects`;
+if (title) {
+  title.textContent = `${projects.length} Projects`;
+}
 
 const container = document.querySelector('.projects');
+renderProjects(projects, container, 'h2');
+
+// STATE
 let query = '';
 let selectedYear = null;
-
-const allYears = [...new Set(projects.map(p => p.year))];
-const colors = d3.scaleOrdinal(d3.schemeTableau10).domain(allYears);
-
-const svg = d3.select('#projects-pie-plot');
-const legend = d3.select('.legend');
 
 // FILTER FUNCTION
 function getFilteredProjects() {
   return projects.filter(p => {
-    const text = Object.values(p).join(' ').toLowerCase();
-    const matchesSearch = text.includes(query.toLowerCase());
-    const matchesYear = !selectedYear || p.year === selectedYear;
+    let text = Object.values(p).join(' ').toLowerCase();
+
+    let matchesSearch = text.includes(query.toLowerCase());
+    let matchesYear =
+      selectedYear === null || p.year === selectedYear;
+
     return matchesSearch && matchesYear;
   });
 }
 
-// RENDER PIE FUNCTION
-function renderPie(filteredProjects) {
-  svg.selectAll('*').remove();
+// PIE RENDER
+const allYears = [...new Set(projects.map(p => p.year))];
+
+const colors = d3.scaleOrdinal(d3.schemeTableau10)
+  .domain(allYears);
+
+function renderPie(projectsData) {
+  const svg = d3.select('#projects-pie-plot');
+  const legend = d3.select('.legend');
+
+  // clear
+  svg.selectAll('path').remove();
   legend.html('');
 
-  const width = 120, height = 120, radius = 50, selectedRadius = 60;
-  const g = svg.attr('viewBox', `0 0 ${width} ${height}`)
-               .append('g')
-               .attr('transform', `translate(${width/2},${height/2})`);
+  // group by year
+  const rolled = d3.rollups(
+    projectsData,
+    v => v.length,
+    d => d.year
+  );
 
-  const data = allYears.map(year => ({
+  const data = rolled.map(([year, count]) => ({
     label: year,
-    value: filteredProjects.filter(p => p.year === year).length
+    value: count
   }));
 
-  const pie = d3.pie().value(d => d.value).sort(null);
-  const arcs = pie(data);
-  const arcGenerator = d3.arc().innerRadius(0).outerRadius(radius);
+  const arcGenerator = d3.arc()
+    .innerRadius(0)
+    .outerRadius(50);
 
-  // Draw slices
-  g.selectAll('path')
-    .data(arcs)
-    .join('path')
-    .attr('d', d => arcGenerator(d))
-    .attr('fill', d => colors(d.data.label))
-    .attr('class', d => d.data.label === selectedYear ? 'selected' : '')
-    .style('cursor', 'pointer')
-    .on('click', (event, d) => {
-      selectedYear = selectedYear === d.data.label ? null : d.data.label;
-      update();
-    });
+  const arcs = d3.pie()
+    .value(d => d.value)(data)
+    .map(d => arcGenerator(d));
 
-  // Enlarge selected slice
-  g.selectAll('path')
-   .transition().duration(300)
-   .attr('d', d => {
-     const r = d.data.label === selectedYear ? selectedRadius : radius;
-     return d3.arc().innerRadius(0).outerRadius(r)(d);
-   });
+  // draw slices
+  arcs.forEach((arc, i) => {
+    svg.append('path')
+      .attr('d', arc)
+      .attr('fill', colors(data[i].label))
+      .attr('class', selectedYear === data[i].label ? 'selected' : '')
+      .on('click', () => {
+        selectedYear =
+          selectedYear === data[i].label ? null : data[i].label;
 
-  // Draw legend
-  data.forEach(d => {
+        update();
+      });
+  });
+
+  // legend
+  data.forEach((d, i) => {
     legend.append('li')
-      .attr('class', d.label === selectedYear ? 'selected' : '')
       .attr('style', `--color:${colors(d.label)}`)
+      .attr('class', selectedYear === d.label ? 'selected' : '')
       .html(`<span class="swatch"></span> ${d.label} (${d.value})`)
       .on('click', () => {
-        selectedYear = selectedYear === d.label ? null : d.label;
+        selectedYear =
+          selectedYear === d.label ? null : d.label;
+
         update();
       });
   });
 }
 
-// UPDATE FUNCTION
-function update() {
-  const filtered = getFilteredProjects();
-  renderProjects(filtered, container, 'h2');
-  renderPie(filtered);
-}
+// SEARCH
+const searchInput = document.querySelector('.searchBar');
 
-// SEARCH HANDLER
-document.querySelector('.searchBar')?.addEventListener('input', e => {
-  query = e.target.value;
+searchInput?.addEventListener('input', e => {  query = e.target.value;
   update();
 });
 
-// INITIAL RENDER
+// UPDATE
+function update() {
+  const filtered = getFilteredProjects();
+
+  renderProjects(filtered, container, 'h2');
+  renderPie(projects);
+}
+
+// initial render
 update();
