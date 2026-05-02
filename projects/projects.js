@@ -100,9 +100,13 @@ searchInput?.addEventListener('input', e => {  query = e.target.value;
 // UPDATE
 function update() {
   const filtered = getFilteredProjects();
+  const searchFiltered = projects.filter(p => {
+    let text = Object.values(p).join(' ').toLowerCase();
+    return text.includes(query.toLowerCase());
+  });
 
   renderProjects(filtered, container, 'h2');
-  renderPie(filtered);
+  renderPie(searchFiltered);  // pie always shows all search-matching projects
 }
 
 // initial render
