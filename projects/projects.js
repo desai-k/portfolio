@@ -39,7 +39,7 @@ function renderPie(filteredProjects) {
   const svg = d3.select('#projects-pie-plot');
   const legend = d3.select('.legend');
 
-  // clear previous
+  // clear previous content
   svg.selectAll('*').remove();
   legend.html('');
 
@@ -52,7 +52,7 @@ function renderPie(filteredProjects) {
     .append('g')
     .attr('transform', `translate(${width / 2}, ${height / 2})`);
 
-  // compute counts per year for filteredProjects
+  // compute counts per year for filtered projects
   const data = allYears.map(year => ({
     label: year,
     value: filteredProjects.filter(p => p.year === year).length
@@ -63,21 +63,32 @@ function renderPie(filteredProjects) {
     .outerRadius(radius);
 
   const pie = d3.pie()
-    .value(d => d.value)(data);
+    .value(d => d.value)
+    .sort(null);
 
-  // draw slices
+  const pieData = pie(data);
+
+  // draw slices using D3 join (dynamic updates)
   g.selectAll('path')
-    .data(pie)
-    .join('path')
-    .attr('d', arcGenerator)
-    .attr('fill', d => colors(d.data.label))
-    .attr('class', d => d.data.label === selectedYear ? 'selected' : '')
-    .on('click', (event, d) => {
-      selectedYear = selectedYear === d.data.label ? null : d.data.label;
-      update();
-    });
+    .data(pieData, d => d.data.label)
+    .join(
+      enter => enter.append('path')
+                    .attr('d', arcGenerator)
+                    .attr('fill', d => colors(d.data.label))
+                    .attr('class', d => d.data.label === selectedYear ? 'selected' : '')
+                    .on('click', (event, d) => {
+                      selectedYear = selectedYear === d.data.label ? null : d.data.label;
+                      update();
+                    }),
+      update => update
+                    .transition().duration(300)
+                    .attr('d', arcGenerator)
+                    .attr('fill', d => colors(d.data.label))
+                    .attr('class', d => d.data.label === selectedYear ? 'selected' : ''),
+      exit => exit.remove()
+    );
 
-  // legend
+  // draw legend
   data.forEach(d => {
     legend.append('li')
       .attr('style', `--color:${colors(d.label)}`)
@@ -101,9 +112,8 @@ searchInput?.addEventListener('input', e => {
 // UPDATE
 function update() {
   const filtered = getFilteredProjects();
-
   renderProjects(filtered, container, 'h2');
-  renderPie(filtered); // dynamically reflect filtered projects
+  renderPie(filtered);
 }
 
 // initial render
