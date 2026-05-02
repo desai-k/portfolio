@@ -16,16 +16,6 @@ renderProjects(projects, container, 'h2');
 let query = '';
 let selectedYear = null;
 
-// FILTER FUNCTION
-function getFilteredProjects() {
-  return projects.filter(p => {
-    const text = Object.values(p).join(' ').toLowerCase();
-    const matchesSearch = text.includes(query.toLowerCase());
-    const matchesYear = selectedYear === null || p.year === selectedYear;
-    return matchesSearch && matchesYear;
-  });
-}
-
 // PIE RENDER
 const allYears = [...new Set(projects.map(p => p.year))];
 const colors = d3.scaleOrdinal(d3.schemeTableau10).domain(allYears);
@@ -65,7 +55,7 @@ function renderPie(filteredProjects) {
     .outerRadius(d => d.data.label === selectedYear ? selectedRadius : baseRadius);
 
   // slices
-  g.selectAll('path')
+  const paths = g.selectAll('path')
     .data(pieData, d => d.data.label)
     .join(
       enter => enter.append('path')
@@ -83,6 +73,9 @@ function renderPie(filteredProjects) {
       exit => exit.remove()
     );
 
+  // Apply selected class only to the clicked wedge
+  paths.attr('class', (d, i) => (selectedYear === d.data.label ? 'selected' : ''));
+
   // legend
   data.forEach(d => {
     legend.append('li')
@@ -95,19 +88,28 @@ function renderPie(filteredProjects) {
       });
   });
 }
+// FILTER FUNCTION
+function getFilteredProjects() {
+  return projects.filter(p => {
+    const text = Object.values(p).join(' ').toLowerCase();
+    const matchesSearch = text.includes(query.toLowerCase());
+    const matchesYear = selectedYear === null || p.year === selectedYear;
+    return matchesSearch && matchesYear;
+  });
+}
 
 // SEARCH
 const searchInput = document.querySelector('.searchBar');
 searchInput?.addEventListener('input', e => {
   query = e.target.value;
-  update();
+  update(); // Trigger the update to render the filtered projects and pie
 });
 
 // UPDATE
 function update() {
   const filtered = getFilteredProjects();
-  renderProjects(filtered, container, 'h2');
-  renderPie(filtered);
+  renderProjects(filtered, container, 'h2');  // Updates the list of projects
+  renderPie(filtered);  // Updates the pie chart
 }
 
 // initial render
