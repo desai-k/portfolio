@@ -88,6 +88,7 @@ function update() {
 }
 
 // --- Search input ---
+const searchInput = document.querySelector('.searchBar');
 searchInput?.addEventListener('input', e => {
   query = e.target.value;
   update();
