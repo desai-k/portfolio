@@ -327,9 +327,8 @@ html {
   --color: oklch(60% 45% 0) !important;
 }
 
-/* Highlighted slice */
 .selected:is(path) {
-  fill: var(--color, oklch(60% 45% 0)) !important;
+  fill: var(--color) !important;
 }
 
 .legend li {
