@@ -19,21 +19,16 @@ let selectedYear = null;
 // FILTER FUNCTION
 function getFilteredProjects() {
   return projects.filter(p => {
-    let text = Object.values(p).join(' ').toLowerCase();
-
-    let matchesSearch = text.includes(query.toLowerCase());
-    let matchesYear =
-      selectedYear === null || p.year === selectedYear;
-
+    const text = Object.values(p).join(' ').toLowerCase();
+    const matchesSearch = text.includes(query.toLowerCase());
+    const matchesYear = selectedYear === null || p.year === selectedYear;
     return matchesSearch && matchesYear;
   });
 }
 
 // PIE RENDER
 const allYears = [...new Set(projects.map(p => p.year))];
-
-const colors = d3.scaleOrdinal(d3.schemeTableau10)
-  .domain(allYears);
+const colors = d3.scaleOrdinal(d3.schemeTableau10).domain(allYears);
 
 function renderPie(filteredProjects) {
   const svg = d3.select('#projects-pie-plot');
@@ -45,22 +40,19 @@ function renderPie(filteredProjects) {
 
   const width = 120;
   const height = 120;
-  const radius = 50;
+  const baseRadius = 50;
+  const selectedRadius = 60;
 
   const g = svg
     .attr('viewBox', `0 0 ${width} ${height}`)
     .append('g')
     .attr('transform', `translate(${width / 2}, ${height / 2})`);
 
-  // compute counts per year for filtered projects
+  // compute counts per year
   const data = allYears.map(year => ({
     label: year,
     value: filteredProjects.filter(p => p.year === year).length
   }));
-
-  const arcGenerator = d3.arc()
-    .innerRadius(0)
-    .outerRadius(radius);
 
   const pie = d3.pie()
     .value(d => d.value)
@@ -68,14 +60,18 @@ function renderPie(filteredProjects) {
 
   const pieData = pie(data);
 
-  // draw slices using D3 join (dynamic updates)
+  const arcGenerator = d3.arc()
+    .innerRadius(0)
+    .outerRadius(d => d.data.label === selectedYear ? selectedRadius : baseRadius);
+
+  // slices
   g.selectAll('path')
     .data(pieData, d => d.data.label)
     .join(
       enter => enter.append('path')
                     .attr('d', arcGenerator)
                     .attr('fill', d => colors(d.data.label))
-                    .attr('class', d => d.data.label === selectedYear ? 'selected' : '')
+                    .style('cursor', 'pointer')
                     .on('click', (event, d) => {
                       selectedYear = selectedYear === d.data.label ? null : d.data.label;
                       update();
@@ -83,12 +79,11 @@ function renderPie(filteredProjects) {
       update => update
                     .transition().duration(300)
                     .attr('d', arcGenerator)
-                    .attr('fill', d => colors(d.data.label))
-                    .attr('class', d => d.data.label === selectedYear ? 'selected' : ''),
+                    .attr('fill', d => colors(d.data.label)),
       exit => exit.remove()
     );
 
-  // draw legend
+  // legend
   data.forEach(d => {
     legend.append('li')
       .attr('style', `--color:${colors(d.label)}`)
@@ -103,7 +98,6 @@ function renderPie(filteredProjects) {
 
 // SEARCH
 const searchInput = document.querySelector('.searchBar');
-
 searchInput?.addEventListener('input', e => {
   query = e.target.value;
   update();
