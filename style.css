@@ -307,7 +307,7 @@ html {
   margin-top: 0.25em;
 }
 
-/* Project Plot */
+/* Pie chart */
 #projects-pie-plot {
   max-width: 20em;
   margin-block: 2em;
@@ -316,25 +316,19 @@ html {
 
 #projects-pie-plot path {
   cursor: pointer;
-  transition: 300ms;
+  transition: 0.3s;
 }
 
+#projects-pie-plot path.selected {
+  fill: oklch(60% 45% 0) !important;
+}
+
+/* Hover fade (Chrome/Safari only) */
 #projects-pie-plot:has(path:hover) path:not(:hover) {
   opacity: 0.5;
 }
 
-.selected {
-  --color: oklch(60% 45% 0) !important;
-}
-
-.selected:is(path) {
-  fill: var(--color);
-}
-
-.legend li {
-  cursor: pointer;
-}
-
+/* Chart container */
 .chart-container {
   display: flex;
   gap: 2em;
@@ -342,6 +336,7 @@ html {
   margin-block: 2em;
 }
 
+/* Legend */
 .legend {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(9em, 1fr));
@@ -355,12 +350,21 @@ html {
   display: flex;
   align-items: center;
   gap: 0.5em;
+  cursor: pointer;
+  padding: 0.3em 0.5em;
+  border-radius: 0.3em;
+  transition: 0.3s;
 }
 
-.swatch {
+.legend li.selected {
+  background-color: var(--color);
+  color: white;
+}
+
+.legend li .swatch {
   width: 1em;
-  aspect-ratio: 1;
-  background: var(--color);
+  height: 1em;
+  background-color: var(--color);
   border-radius: 0.2em;
   display: inline-block;
 }
