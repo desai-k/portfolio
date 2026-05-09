@@ -66,7 +66,6 @@ function renderCommitInfo(data, commits) {
     { label: 'Max Depth', value: d3.max(data, d => d.depth) },
     { label: 'Longest Line', value: d3.max(data, d => d.length) },
     { label: 'Max Lines', value: d3.max(commits, d => d.totalLines) },
-    { label: 'Avg Line Length', value: d3.mean(data, d => d.length).toFixed(2) },
   ];
 
   const table = container.append('div').attr('class', 'stats-grid');
