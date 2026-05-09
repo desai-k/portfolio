@@ -4,6 +4,17 @@ let xScale;
 let yScale;
 let commits;
 
+async function init() {
+  renderCommitInfo();  // stats start at 0
+  renderSelectionCount();  // no text
+  renderScatterPlot();  // empty chart
+
+  const data = await loadData();
+  commits = processCommits(data);
+}
+
+init();
+
 async function loadData() {
   const data = await d3.csv('loc.csv', (row) => ({
     ...row,
