@@ -57,28 +57,29 @@ function processCommits(data) {
 }
 
 function renderCommitInfo(data, commits) {
+  const container = d3.select('#stats');
 
-  const dl = d3.select('#stats')
-    .append('dl')
-    .attr('class', 'stats');
+  const stats = [
+    { label: 'Commits', value: commits.length },
+    { label: 'Files', value: d3.group(data, d => d.file).size },
+    { label: 'Total LOC', value: data.length },
+    { label: 'Max Depth', value: d3.max(data, d => d.depth) },
+    { label: 'Longest Line', value: d3.max(data, d => d.length) },
+    { label: 'Max Lines', value: d3.max(commits, d => d.totalLines) },
+    { label: 'Avg Line Length', value: d3.mean(data, d => d.length).toFixed(2) },
+  ];
 
-  dl.append('dt').text('Total LOC');
-  dl.append('dd').text(data.length);
+  const table = container.append('div').attr('class', 'stats-grid');
 
-  dl.append('dt').text('Total commits');
-  dl.append('dd').text(commits.length);
-
-  dl.append('dt').text('Files');
-  dl.append('dd')
-    .text(d3.group(data, d => d.file).size);
-
-  dl.append('dt').text('Average line length');
-  dl.append('dd')
-    .text(d3.mean(data, d => d.length).toFixed(2));
-
-  dl.append('dt').text('Max depth');
-  dl.append('dd')
-    .text(d3.max(data, d => d.depth));
+  table
+    .selectAll('div.stat')
+    .data(stats)
+    .join('div')
+    .attr('class', 'stat')
+    .html(d => `
+      <div class="label">${d.label}</div>
+      <div class="value">${d.value}</div>
+    `);
 }
 
 function renderScatterPlot(data, commits) {
