@@ -88,7 +88,7 @@ function renderScatterPlot(data, commits) {
 
   const margin = {
     top: 10,
-    right: 10,
+    right: 50,
     bottom: 30,
     left: 40,
   };
