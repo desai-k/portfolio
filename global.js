@@ -145,11 +145,32 @@ export function renderProjects(projects, containerElement, headingLevel = 'h2') 
     const basePath = location.pathname.includes('/projects/') ? '../' : '';
 
     article.innerHTML = `
-      <${headingLevel}>${project.title}</${headingLevel}>
-      <img src="${basePath + project.image}" alt="${project.title}">
-      <p>${project.description}</p>
-      <p class="project-year">${project.year}</p>
-    `;
+  <${headingLevel}>${project.title}</${headingLevel}>
+
+  <img
+    src="${basePath + project.image}"
+    alt="${project.title}"
+  >
+
+  <p>${project.description}</p>
+
+  <p class="project-year">${project.year}</p>
+
+  ${
+    project.url
+      ? `
+        <a
+          class="project-link"
+          href="${project.url}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View Project →
+        </a>
+      `
+      : ''
+  }
+`;
 
     containerElement.appendChild(article);
   });

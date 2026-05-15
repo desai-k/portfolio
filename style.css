@@ -494,3 +494,18 @@ circle.selected {
   color: #334155;
   font-weight: 500;
 }
+
+.project-link {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.5rem 1rem;
+  background: #2563eb;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.project-link:hover {
+  background: #1d4ed8;
+}
