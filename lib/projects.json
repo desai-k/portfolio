@@ -1,9 +1,9 @@
 [
     {
-        "title": "recipe-rating-analysis",
+        "title": "Bike Watching",
         "year": "2026",
-        "image": "images/recipeRatings.png",
-        "description": "Food plays an important role in daily life, and understanding what makes a recipe appealing can help users make better cooking decisions. In this project, I analyze a large dataset of online recipes and user ratings to investigate how nutritional characteristics influence user preferences."
+        "image": "images/bikewatchingLab7dsc106.png",
+        "description": "Beatae, accusamus aliquid adipisci molestias repellendus aliquam quod, magni officia quas iusto officiis laborum? Facere corporis nesciunt odio numquam adipisci nostrum, iusto sapiente autem suscipit, deleniti esse, saepe blanditiis temporibus."
     },
     {
         "title": "Expository Visualization",
@@ -18,10 +18,10 @@
         "description": "This project explored how data visualization can shape interpretation rather than simply present neutral facts. Using the NYPD civilian complaints dataset, two opposing narratives about racial discrimination were created from the same data by applying different design choices."
     },
     {
-        "title": "Doloribus quis sit exercitationem!",
-        "year": "2025",
-        "image": "https://vis-society.github.io/labs/2/images/empty.svg",
-        "description": "Beatae, accusamus aliquid adipisci molestias repellendus aliquam quod, magni officia quas iusto officiis laborum? Facere corporis nesciunt odio numquam adipisci nostrum, iusto sapiente autem suscipit, deleniti esse, saepe blanditiis temporibus."
+        "title": "recipe-rating-analysis",
+        "year": "2026",
+        "image": "images/recipeRatings.png",
+        "description": "Food plays an important role in daily life, and understanding what makes a recipe appealing can help users make better cooking decisions. In this project, I analyze a large dataset of online recipes and user ratings to investigate how nutritional characteristics influence user preferences."
     },
     {
         "title": "Consequatur optio beatae iure!",
